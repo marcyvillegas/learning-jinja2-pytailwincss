@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Response
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from pathlib import Path
@@ -30,7 +30,10 @@ sampleList = [
 
 @app.get("/")
 async def root():
-    return {"message": "Hello World"}
+    try:
+        return {"message": "Hello World"}
+    except Exception as e:
+        return Response(status_code=500, content=str(e))
 
 
 @app.get("/hello/{name}")
@@ -43,6 +46,9 @@ async def name(request: Request):
     return templates.TemplateResponse("home.html", {"request": request, "name": "sample name"})
 
 @app.get('/list')
-async def name(request: Request):
+async def list(request: Request):
     return templates.TemplateResponse("list.html", {"request": request, "name": "sample name", "sampleList": sampleList})
 
+@app.get('/redirect/to/{page_name}')
+async def getParam(request: Request, page_name: str):
+    return templates.TemplateResponse("param.html", {"request": request, "page_name": page_name})
