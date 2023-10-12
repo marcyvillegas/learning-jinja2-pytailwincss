@@ -1,0 +1,11 @@
+{% macro divComponent(name, value='') -%}
+    <div id="{{ value }}">
+        {{ name }}
+    </div>
+{%- endmacro %}
+
+{% macro text(content) -%}
+    <p class="sample_class">
+        {{content}}
+    </p>
+{%- endmacro %}

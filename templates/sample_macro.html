@@ -1,0 +1,19 @@
+{% import "macros.html" as macros %}
+
+<html>
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link href="{{ url_for('static', path='/output.css') }}" rel="stylesheet">
+      <link href="{{ url_for('static', path='/another_output.css') }}" rel="stylesheet">
+    </head>
+
+    <body>
+        <!-- MACROS -->
+        {{ macros.divComponent('This is a sample macro component', 'sample_id') }}
+        {{ macros.text('This is a content') }}
+
+        <!-- INCLUDES (PURE HTML) -->
+        {% include "div.html" %}
+    </body>
+</html>

@@ -61,6 +61,13 @@ async def parent(request: Request):
 async def child_1(request: Request):
     return templates.TemplateResponse("child1.html", {"request": request})
 
+@app.get('/sample_macro')
+async def form(request: Request):
+    # try:
+    return templates.TemplateResponse("sample_macro.html", {"request": request})
+    # except Exception as e:
+    #     print(e)
+
 @app.get('/form')
 async def form(request: Request):
     return templates.TemplateResponse("form.html", {"request": request})
