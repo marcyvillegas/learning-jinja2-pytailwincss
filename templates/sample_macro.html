@@ -1,4 +1,4 @@
-{% import "macros.html" as macros %}
+{% import "./macros/macros.html" as macros %}
 
 <html>
     <head>
@@ -9,11 +9,12 @@
     </head>
 
     <body>
-        <!-- MACROS -->
+        <!-- MACROS (uses import) -->
+        <!-- TailwindCSS does not work here, but external stylesheet does -->
         {{ macros.divComponent('This is a sample macro component', 'sample_id') }}
         {{ macros.text('This is a content') }}
 
         <!-- INCLUDES (PURE HTML) -->
-        {% include "div.html" %}
+        {% include "./includes/div.html" %}
     </body>
 </html>
