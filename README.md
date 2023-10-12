@@ -17,6 +17,6 @@ Experimental repository for learning Jinja2 with PyTailwindCSS, FastAPI and AJAX
 	|-- form.html 	  # simple form that redirects to successful_form.html
 	|-- successful_form.html
 	|-- sample_macro.html  # importing macros and HTML snippets
-	|-- ajax_get.html 	   # using ajax get method
-	|-- form_2.html 	   # using ajax post method
+	|-- ajax_get.html      # using ajax get method
+	|-- form_2.html        # using ajax post method
     
