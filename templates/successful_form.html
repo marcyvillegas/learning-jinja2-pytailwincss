@@ -1,0 +1,16 @@
+{% extends "form.html" %}
+{% block title %}Child 1{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <style>
+        .result { color: #348; }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <h1>Result</h1>
+    <p class="result">
+      Result: {{ result }}
+    </p>
+{% endblock %}

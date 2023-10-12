@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, Response
+from fastapi import FastAPI, Request, Response, Form
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from pathlib import Path
@@ -50,5 +50,34 @@ async def list(request: Request):
     return templates.TemplateResponse("list.html", {"request": request, "name": "sample name", "sampleList": sampleList})
 
 @app.get('/redirect/to/{page_name}')
-async def getParam(request: Request, page_name: str):
+async def get_param(request: Request, page_name: str):
     return templates.TemplateResponse("param.html", {"request": request, "page_name": page_name})
+
+@app.get('/parent')
+async def parent(request: Request):
+    return templates.TemplateResponse("parent.html", {"request": request})
+
+@app.get('/child_1')
+async def child_1(request: Request):
+    return templates.TemplateResponse("child1.html", {"request": request})
+
+@app.get('/form')
+async def form(request: Request):
+    return templates.TemplateResponse("form.html", {"request": request})
+
+@app.post('/submit')
+async def successful_submit(request:Request, cat_name: str = Form(...)):
+    return templates.TemplateResponse("successful_form.html", {"request": request, "result": cat_name})
+
+# @app.post("/users")
+# async def create_user(request: Request):
+#     user_data = await request.json()
+#
+#     # Create a new user using the user data
+#     new_user = User(name=user_data["name"], email=user_data["email"])
+#
+#     # Save the new user to the database
+#     await new_user.save()
+#
+#     # Redirect the user to the home page and pass the new user variable
+#     return TemplateResponse("home.html", {"new_user": new_user})

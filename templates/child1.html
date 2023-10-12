@@ -1,0 +1,21 @@
+{% extends "parent.html" %}
+{% block title %}Child 1{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <style>
+        .important { color: #336699; }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <h1  class="text-3xl font-bold">Index</h1>
+    <p class="important">
+        Welcome to my awesome homepage.
+    </p>
+{% endblock %}
+
+{% block footer %}
+    <p>This is an extension from child_1 itself.</p>
+    {{ super() }}
+{% endblock %}
