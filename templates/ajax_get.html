@@ -1,0 +1,80 @@
+{% extends "parent.html" %}
+{% block title %}AJAX - GET{% endblock %}
+
+{% block content %}
+    {# content of page here   #}
+
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline my-6"
+            onclick=showCountries()
+            id="get-countries-button">
+        Show Countries
+    </button>
+
+    {# display list of contries here #}
+    <div id="countries"></div>
+
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline my-2"
+            onclick=getUsers()>
+        Get Users
+    </button>
+
+    {# display list of users here #}
+    <div id="users" class="mb-2"></div>
+{% endblock %}
+
+{% block script %}
+    {# ajax script here #}
+    <script>
+        function showCountries() {
+            let xhr = new XMLHttpRequest()
+
+            xhr.open('GET', 'https://restcountries.com/v3.1/all', true)
+
+            xhr.onload = function () {
+
+                const countriesButton = document.getElementById("get-countries-button")
+                countriesButton.innerText = "Loading..."
+
+                {# fake loading time #}
+                setTimeout(() => {
+                    if (xhr.status == 200) {
+                        console.log('success')
+                        let countries = JSON.parse(this.response)
+                        console.log(countries)
+
+                        countries.forEach(country => {
+                            const countryContainer = document.createElement("p")
+                            countryContainer.innerHTML = country.name.common
+                            document.getElementById('countries').appendChild(countryContainer)
+                        })
+
+                        countriesButton.innerText = "Done Showing Countries"
+                    }
+                }, 500)
+            }
+
+            xhr.send()
+        }
+
+        function getUsers() {
+            let xhr = new XMLHttpRequest()
+
+            xhr.open('GET', '/users', true)
+
+            xhr.onload = function () {
+                if (xhr.status == 200) {
+                    console.log('success')
+                    let users = JSON.parse(this.response)
+
+                    users.forEach(user => {
+                        const userContainer = document.createElement("p")
+                        userContainer.innerText = user.name
+                        document.getElementById('users').appendChild(userContainer)
+                    })
+                }
+            }
+
+            xhr.send()
+        }
+    </script>
+{% endblock %}

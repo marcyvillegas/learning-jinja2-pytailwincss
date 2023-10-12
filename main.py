@@ -30,16 +30,11 @@ sampleList = [
 
 @app.get("/")
 async def root():
-    try:
         return {"message": "Hello World"}
-    except Exception as e:
-        return Response(status_code=500, content=str(e))
-
 
 @app.get("/hello/{name}")
 async def say_hello(name: str):
     return {"message": f"Hello {name}"}
-
 
 @app.get('/name')
 async def name(request: Request):
@@ -63,10 +58,7 @@ async def child_1(request: Request):
 
 @app.get('/sample_macro')
 async def form(request: Request):
-    # try:
     return templates.TemplateResponse("sample_macro.html", {"request": request})
-    # except Exception as e:
-    #     print(e)
 
 @app.get('/form')
 async def form(request: Request):
@@ -76,15 +68,14 @@ async def form(request: Request):
 async def successful_submit(request:Request, cat_name: str = Form(...)):
     return templates.TemplateResponse("successful_form.html", {"request": request, "result": cat_name})
 
-# @app.post("/users")
-# async def create_user(request: Request):
-#     user_data = await request.json()
-#
-#     # Create a new user using the user data
-#     new_user = User(name=user_data["name"], email=user_data["email"])
-#
-#     # Save the new user to the database
-#     await new_user.save()
-#
-#     # Redirect the user to the home page and pass the new user variable
-#     return TemplateResponse("home.html", {"new_user": new_user})
+@app.get('/form_2')
+async def form_2(request: Request):
+    return templates.TemplateResponse("form_2.html", {"request": request})
+
+@app.get('/ajax_get')
+async def ajax_get(request: Request):
+    return templates.TemplateResponse("ajax_get.html", {"request": request})
+
+@app.get('/users')
+async def get_users():
+    return sampleList

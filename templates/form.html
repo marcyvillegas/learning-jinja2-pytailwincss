@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html>
-   <head>
-      {% block head %}
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link href="{{ url_for('static', path='/output.css') }}" rel="stylesheet">
-      <title>{% block title %}{% endblock %} - Form</title>
-      {% endblock %}
-   </head>
-   <body>
-      <h1>Sample Form</h1>
-      <form method="post" action="/submit">
-         <label for="cat_name">Enter a category name to disable:</label><br>
-         <input type="text" id="cat_name" name="cat_name">
-         <input class="submit" type="submit" value="Submit">
+<head>
+    {% block head %}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="{{ url_for('static', path='/output.css') }}" rel="stylesheet">
+        <title>{% block title %}{% endblock %} - Form</title>
+    {% endblock %}
+</head>
 
-          <div id="content">{% block content %}{% endblock %}</div>
-      </form>
-   </body>
+<body>
+<h1>Sample Form</h1>
+<form method="post" action="/submit">
+    <label for="cat_name">Enter a category name to disable:</label><br>
+    <input type="text" id="cat_name" name="cat_name" class="border-2 border-indigo-700">
+    <input class="submit" type="submit" value="Submit">
+
+    <div id="content">{% block content %}{% endblock %}</div>
+</form>
+</body>
 </html>
