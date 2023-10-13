@@ -2,20 +2,28 @@
 <html lang="en">
 <head>
     {% block head %}
-    <link href="{{ url_for('static', path='/output.css') }}" rel="stylesheet">
-    <title>{% block title %}{% endblock %} - My Webpage</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="{{ url_for('static', path='/output.css') }}" rel="stylesheet">
+        <title>{% block title %}{% endblock %} - My Webpage</title>
     {% endblock %}
 </head>
 
-<body class="flex justify-center">
-    <div>
-        {% block content %}{% endblock %}
+<body>
+<div class="grid grid-cols-12">
+    <div class="mt-6 col-start-2 col-span-10 lg:col-start-2 lg:col-span-9 ">
+        <div class="">
+            {% block content %}{% endblock %}
 
-        {% block footer %}
-        <p>&copy; Copyright 2008 by <a href="http://domain.invalid/">you</a>.</p>
-        {% endblock %}
+            {% block footer %}
+                <div class="flex justify-center">
+                    <p>&copy; Copyright 2008 by <a href="http://domain.invalid/">you</a>.</p>
+                </div>
+            {% endblock %}
+        </div>
     </div>
+</div>
 
-    {% block script %}{% endblock %}
+{% block script %}{% endblock %}
 </body>
 </html>

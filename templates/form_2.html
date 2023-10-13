@@ -1,38 +1,80 @@
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="{{ url_for('static', path='/output.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', path='/another_output.css') }}" rel="stylesheet">
-</head>
+{% extends "parent.html" %}
+{% block title %}AJAX - GET{% endblock %}
 
-<body>
-{# Form layout from tailwindcss v1 #}
-<div class="h-full flex justify-center items-center mx-5">
-    <div class="w-full max-w-xs">
-        <form class="bg-white shadow-lg border border-slate-300 rounded px-8 pt-6 pb-8 mb-4" >
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
-                    Username
-                </label>
-                <input class="shadow border border-slate-300 appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                       id="username" type="text" placeholder="Username">
-            </div>
-            <div class="mb-6">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
-                    Password
-                </label>
-                <input class="shadow border border-slate-300 appearance-none rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                       id="password" type="password" placeholder="******************">
-            </div>
-            <div class="flex items-center justify-between">
-                <input class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" value="Sign in" />
-                <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
-                    Forgot Password?
-                </a>
-            </div>
-        </form>
-    </div>
-</div>
-</body>
-</html>
+{% block content %}
+    {# Form layout from tailwindcss v1 #}
+            <form class="bg-white shadow-lg border border-slate-300 rounded px-8 pt-6 pb-8 mb-4"
+                  id="form-2">
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+                        Username
+                    </label>
+                    <input
+                            class="shadow border border-slate-300 appearance-none rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="username" type="text" name="username" placeholder="Username">
+                </div>
+                <div class="mb-6">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+                        Password
+                    </label>
+                    <input
+                            class="shadow border border-slate-300 appearance-none rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                            id="password" type="password" name="password" placeholder="******************">
+                </div>
+                <div class="flex items-center justify-between">
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            type="submit">
+                        Sign-in
+                    </button>
+                    <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+                       href="#">
+                        Forgot Password?
+                    </a>
+                </div>
+            </form>
+{% endblock %}
+
+{% block script %}
+    <script>
+
+        const form = document.getElementById("form-2")
+
+        form.onsubmit = function (e) {
+            e.preventDefault();
+
+            console.log("pressed")
+
+            // Create a new XMLHttpRequest object.
+            const xhr = new XMLHttpRequest();
+
+            // Open a POST request to the API route.
+            xhr.open('POST', '/submit_form_2', true);
+
+            // Set the request headers.
+            xhr.setRequestHeader('Content-Type', 'application/json');
+
+            const params = {
+                username: document.getElementById('username').value,
+                password: document.getElementById('password').value
+            }
+
+            xhr.send(JSON.stringify(params));
+
+            // Listen for the response.
+            xhr.onload = function () {
+
+                if (xhr.status == 200) {
+                    // The request was successful.
+                    const data = JSON.parse(xhr.responseText);
+
+                    // Display the return value.
+                    console.log(data);
+                }
+            }
+
+            xhr.onerror = function (err) {
+                console.log(err);
+            };
+        }
+    </script>
+{% endblock %}

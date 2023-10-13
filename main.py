@@ -79,3 +79,16 @@ async def ajax_get(request: Request):
 @app.get('/users')
 async def get_users():
     return sampleList
+
+@app.post('/submit_form_2')
+async def submit_form_2(
+        request: Request,
+        data: dict
+):
+    print(data)
+    username = data.get('username')
+    password = data.get('password')
+    return {
+        "username": username,
+        "password": password
+    }
