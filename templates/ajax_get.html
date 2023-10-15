@@ -63,7 +63,7 @@
         xhr.open('GET', '/users', true)
 
         xhr.onload = function () {
-            if (xhr.status == 200) {
+            if (xhr.status === 200) {
                 console.log('success')
                 let users = JSON.parse(this.response)
 

@@ -77,12 +77,14 @@
                 number: number.value
             }
 
+            console.log(params)
+
             xhr.send(JSON.stringify(params));
 
             // Listen for the response.
             xhr.onload = function () {
 
-                if (xhr.status == 200) {
+                if (xhr.status === 200) {
                     // The request was successful.
                     const data = JSON.parse(xhr.responseText);
 
