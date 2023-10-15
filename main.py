@@ -105,5 +105,4 @@ async def submit_form_2(
 
     # the data variable will be returned by the controller, where the database manipulation will happen
     #  data = await controller.process( arguments here )
-    # return form_validation(data=data, model=SignUp)
     return data

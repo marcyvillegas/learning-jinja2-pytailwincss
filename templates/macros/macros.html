@@ -1,4 +1,4 @@
-{% macro divComponent(name, value='') -%}
+{% macro div_component(name, value='') -%}
     <div id="{{ value }}">
         {{ name }}
     </div>
@@ -6,6 +6,12 @@
 
 {% macro text(content) -%}
     <p class="sample_class">
-        {{content}}
+        {{ content }}
     </p>
+{%- endmacro %}
+
+{% macro error_card(error_message) -%}
+    <div class="flex justify-center py-3" id="error-message" style="display: none">
+        <p class="text-red-900 font-bold">{{ error_message }}</p>
+    </div>
 {%- endmacro %}

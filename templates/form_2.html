@@ -1,4 +1,6 @@
 {% extends "parent.html" %}
+{% import "./macros/macros.html" as macros %}
+
 {% block title %}AJAX - GET{% endblock %}
 
 {% block content %}
@@ -30,9 +32,8 @@
                             id="number" type="number" name="number" placeholder="123456789">
                 </div>
 
-                <div class="flex justify-center py-3">
-                    <p class="text-red-900" id="error-message"></p>
-                </div>
+                {# error message #}
+                {{ macros.error_card('Error message here') }}
 
                 <div class="flex items-center justify-between">
                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -88,7 +89,7 @@
                     // Display the return value.
                     console.log(data);
                 } else {
-                    errorContainer.innerHTML = "Error message"
+                    errorContainer.style.display = "flex"
                 }
             }
 
