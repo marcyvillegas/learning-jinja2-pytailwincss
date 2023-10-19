@@ -1,6 +1,7 @@
 from fastapi import HTTPException
 from pydantic import parse_obj_as
 
+
 # sample class dependency only
 class FormValidation:
     def __init__(
