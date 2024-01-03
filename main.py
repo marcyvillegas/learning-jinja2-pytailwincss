@@ -90,6 +90,11 @@ async def ajax_get(request: Request):
     return templates.TemplateResponse("get_countries.html", {"request": request})
 
 
+@app.get("/navigation")
+async def navigation(request: Request):
+    return templates.TemplateResponse("navigation.html", {"request": request})
+
+
 @app.get("/users")
 async def get_users():
     return sampleList
