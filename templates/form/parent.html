@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="{{ url_for('static', path='/output.css') }}" rel="stylesheet">
+        <title>{% block title %}{% endblock %} - My Webpage</title>
+    {% endblock %}
+</head>
+
+<body>
+<div class="grid grid-cols-12">
+    <div class="mt-6 col-start-2 col-span-10 md:col-start-4 md:col-span-6  ">
+        <div class="">
+            {% block content %}{% endblock %}
+
+            {% block footer %}
+                <div class="flex justify-center">
+                    <p>&copy; Copyright 2008 by <a href="http://domain.invalid/">you</a>.</p>
+                </div>
+            {% endblock %}
+        </div>
+    </div>
+</div>
+
+{% block script %}{% endblock %}
+</body>
+</html>

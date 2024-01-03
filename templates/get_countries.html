@@ -29,32 +29,34 @@
     async function showCountries() {
         let xhr = new XMLHttpRequest()
 
-        xhr.open('GET', 'https://restcountries.com/v3.1/all', true)
+        try {
+            xhr.open('GET', 'https://restcountries.com/v3.1/all', true)
 
-        xhr.onload = function () {
+            xhr.onload = function () {
 
-            const countriesButton = document.getElementById("get-countries-button")
-            countriesButton.innerText = "Loading..."
+                const countriesButton = document.getElementById("get-countries-button")
+                countriesButton.innerText = "Loading..."
 
-            {# fake loading time #}
-            setTimeout(() => {
-                if (xhr.status == 200) {
-                    console.log('success')
-                    let countries = JSON.parse(this.response)
-                    console.log(countries)
+                <!-- fake loading time -->
+                setTimeout(() => {
+                    if (xhr.status == 200) {
+                        let countries = JSON.parse(this.response)
 
-                    countries.forEach(country => {
-                        const countryContainer = document.createElement("p")
-                        countryContainer.innerHTML = country.name.common
-                        document.getElementById('countries').appendChild(countryContainer)
-                    })
+                        countries.forEach(country => {
+                            const countryContainer = document.createElement("p")
+                            countryContainer.innerHTML = country.name.common
+                            document.getElementById('countries').appendChild(countryContainer)
+                        })
 
-                    countriesButton.innerText = "Done Showing Countries"
-                }
-            }, 500)
+                        countriesButton.innerText = "Done Showing Countries"
+                    }
+                }, 500)
+            }
+
+            xhr.send()
+        } catch (e) {
+            console.log(e)
         }
-
-        xhr.send()
     }
 
     async function getUsers() {
@@ -64,7 +66,6 @@
 
         xhr.onload = function () {
             if (xhr.status === 200) {
-                console.log('success')
                 let users = JSON.parse(this.response)
 
                 users.forEach(user => {

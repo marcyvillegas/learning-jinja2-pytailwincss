@@ -3,7 +3,6 @@ from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from pathlib import Path
 from models.sign_up import SignUp
-from utils.form_validation import form_validation
 
 app = FastAPI()
 
@@ -16,18 +15,9 @@ app.mount(
 templates = Jinja2Templates(directory="templates")
 
 sampleList = [
-    {
-        "name": "Marcy",
-        "age": 22
-    },
-    {
-        "name": "Margott",
-        "age": 18
-    },
-    {
-        "name": "Mitchell",
-        "age": 25
-    }
+    {"name": "Marcy", "age": 22},
+    {"name": "Margott", "age": 18},
+    {"name": "Mitchell", "age": 25},
 ]
 
 
@@ -41,66 +31,72 @@ async def say_hello(name: str):
     return {"message": f"Hello {name}"}
 
 
-@app.get('/name')
+@app.get("/name")
 async def name(request: Request):
-    return templates.TemplateResponse("home.html", {"request": request, "name": "sample name"})
+    return templates.TemplateResponse(
+        "home.html", {"request": request, "name": "sample name"}
+    )
 
 
-@app.get('/list')
+@app.get("/list")
 async def list(request: Request):
-    return templates.TemplateResponse("list.html",
-                                      {"request": request, "name": "sample name", "sampleList": sampleList})
+    return templates.TemplateResponse(
+        "list.html",
+        {"request": request, "name": "sample name", "sampleList": sampleList},
+    )
 
 
-@app.get('/redirect/to/{page_name}')
+@app.get("/redirect/to/{page_name}")
 async def get_param(request: Request, page_name: str):
-    return templates.TemplateResponse("param.html", {"request": request, "page_name": page_name})
+    return templates.TemplateResponse(
+        "param.html", {"request": request, "page_name": page_name}
+    )
 
 
-@app.get('/parent')
+@app.get("/parent")  # from /templates/form
 async def parent(request: Request):
     return templates.TemplateResponse("parent.html", {"request": request})
 
 
-@app.get('/child_1')
+@app.get("/child_1")
 async def child_1(request: Request):
     return templates.TemplateResponse("child1.html", {"request": request})
 
 
-@app.get('/sample_macro')
+@app.get("/sample_macro")
 async def form(request: Request):
     return templates.TemplateResponse("sample_macro.html", {"request": request})
 
 
-@app.get('/form')
+@app.get("/form")
 async def form(request: Request):
     return templates.TemplateResponse("form.html", {"request": request})
 
 
-@app.post('/submit')
+@app.post("/submit")
 async def successful_submit(request: Request, cat_name: str = Form(...)):
-    return templates.TemplateResponse("successful_form.html", {"request": request, "result": cat_name})
+    return templates.TemplateResponse(
+        "successful_form.html", {"request": request, "result": cat_name}
+    )
 
 
-@app.get('/form_2')
+@app.get("/form_2")  # from /templates/form
 async def form_2(request: Request):
     return templates.TemplateResponse("form_2.html", {"request": request})
 
 
-@app.get('/ajax_get')
+@app.get("/get_countries")
 async def ajax_get(request: Request):
-    return templates.TemplateResponse("ajax_get.html", {"request": request})
+    return templates.TemplateResponse("get_countries.html", {"request": request})
 
 
-@app.get('/users')
+@app.get("/users")
 async def get_users():
     return sampleList
 
 
-@app.post('/submit_form_2')
-async def submit_form_2(
-        data: SignUp
-) -> SignUp:
+@app.post("/submit_form_2")
+async def submit_form_2(data: SignUp) -> SignUp:
     print(data)
 
     # the data variable will be returned by the controller, where the database manipulation will happen
